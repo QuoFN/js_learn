@@ -1,43 +1,3 @@
-// const a = +prompt("Введите первое число", 0);
-// const b = +prompt("Введите первое число", 0);
-
-// const max = !isNaN(a) || !isNaN(b) ? (a > b ? a : b) : "Что то пошло не так";
-
-// // if (a > b) {
-// //     max = a;
-// // } else {
-// //     max = b;
-// // }
-
-// console.log(max);
-
-// const weather = "sun";
-
-// switch (weather) {
-//   case "rain":
-//     console.log("Остаюсь дома");
-//     break;
-//   case "sun":
-//     console.log("Иду гулять");
-//     break;
-//   default:
-//     console.log("Что то с погодой не так...");
-// }
-
-// const ADMIN = "admin";
-// const MODERATOR = "moderator";
-// const USER = "user";
-
-// const userRole = ADMIN;
-
-// switch (userRole) {
-//     case "admin":
-//     case "moderator":
-//         console.log('Добро пожаловать!');
-//         break
-//     default:
-//         console.log("Тебе сюда нельзя!");
-// }
 
 // ---------------------------------------------------------------------------------------------------------------
 
@@ -130,5 +90,6 @@
 // if (result > 0) {
 //     alert(`Итоговая стоимость доставки: ${result}$`);
 // }
+
 
 
