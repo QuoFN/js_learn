@@ -1,84 +1,87 @@
-
 // Задача 1.
-// Напишите функцию calculateFinalPrice, которая принимает базовую цену товара, процент скидки и налоговую ставку.
-//  Функция должна вычислять скидку, затем прибавлять налог и возвращать итоговую цену.
-
-// Пример работы:
-// console.log(calculateFinalPrice(100, 10, 0.2)); // 108
-// console.log(calculateFinalPrice(100, 10, 0)); // 90
+// Создайте объект person с несколькими свойствами, содержащими информацию о вас. Затем выведите значения этих свойств в консоль.
 
 
-const calculateFinalPrice = (cost, discount, tax) => {
-  const discountAmount = cost * (discount / 100); // скидка в рублях
-  const priceAfterDiscount = cost - discountAmount; // цена после скидки
-  const taxAmount = priceAfterDiscount * tax; // налог в рублях
-  return priceAfterDiscount + taxAmount; // итог
+const person = {
+  name: "Sava",
+  age: 19,
+  hobby: "volleyball"
 };
 
-console.log(calculateFinalPrice(100, 10, 0.2));
+for (let key in person) {
+  console.log(`${key}: ${person[key]}`);
+}
+
 
 
 // Задача 2.
-// Напишите функцию checkAccess, которая принимает имя пользователя и пароль.
-//  Если имя пользователя равно "admin" и пароль равен "123456", функция должна возвращать строку "Доступ разрешен", иначе — "Доступ запрещен".
+// Создайте функцию isEmpty, которая проверяет является ли переданный объект пустым.
+// Если объект пуст - верните true, в противном случае false.
 
-
-const checkAccess = (nameUser, password) => {
-  switch (true) {
-    case nameUser === "admin" && password === "123456":
-      return "Доступ разрешен!";
-    default:
-      return "Доступ запрещен!";
+const isEmpty = obj => {
+  for (let key in obj) {
+    return false;
   }
+  return true;
 };
 
-console.log(checkAccess("admin", "123456"));
+console.log(isEmpty({}));
+console.log(isEmpty({ name: "Sava" }));
+
 
 
 // Задача 3.
-// Напишите функцию getTimeOfDay, которая принимает текущее время (число от 0 до 23) и возвращает строку:
-// "Ночь" (с 0 до 5 часов),
-// "Утро" (с 6 до 11 часов),
-// "День" (с 12 до 17 часов),
-// "Вечер" (с 18 до 23 часов).
-// Если введённое значение не попадает в этот диапазон, возвращайте `"Некорректное время"`.
+// Создайте объект task с несколькими свойствами: title, description, isCompleted.
+// Напишите функцию cloneAndModify(object, modifications), которая
+// с помощью оператора spread создает копию объекта и применяет изменения из объекта modifications.
+// Затем с помощью цикла for in выведите все свойства полученного объекта.
 
 
-function getTimeOfDay(time) {
-  return time >= 0 && time <= 5
-    ? "Ночь"
-    : time >= 6 && time <= 11
-    ? "Утро"
-    : time >= 12 && time <= 17
-    ? "День"
-    : time >= 18 && time <= 23
-    ? "Вечер"
-    : "Некорректное время";
+const task = {
+  title: "Hello",
+  description: "i am programmer",
+  isCompleted: true,
+};
+
+const cloneAndModify = (object, modifications) => {
+  return { ...object, ...modifications };
+};
+
+const modifications = {
+  title: "How are you?",
+  isCompleted: false,
+};
+
+const modifiedTask = cloneAndModify(task, modifications);
+
+for (const key in modifiedTask) {
+  console.log(`${key}: ${modifiedTask[key]}`);
 }
 
-console.log(getTimeOfDay(-1));
+console.log("Оригинал:", task);
+console.log("Изменённая копия:", modifiedTask);
+
 
 
 // Задача 4.
-// Напишите функцию findFirstEven, которая принимает два числа start и end и находит первое чётное число в указанном диапазоне.
-// Если чётного числа в этом диапазоне нет, функция должна вернуть "Чётных чисел нет".
+// Создайте функцию callAllMethods, которая принимает объект и вызывает все его методы.
 
-// Пример работы:
-// console.log(findFirstEven(1, 10)); // 2
-// console.log(findFirstEven(9, 9)); // "Чётных чисел нет"
-
-
-function findFirstEven(start, end) {
-  if (start > end) {
-    return "Ошибка! Начало диапазона больше конца";
-  }
-
-  for (let i = start; i <= end; i++) {
-    if (i % 2 === 0) {
-      return i;
+const callAllMethods = obj => {
+  for (const key in obj) {
+    if (typeof obj[key] === "function") {
+      obj[key]();
     }
   }
-  return "Чётных чисел нет";
-}
+};
 
-console.log(findFirstEven(1, 10));
+const myObject = {
+  method1() {
+    console.log("Метод 1 вызван");
+  },
+  method2() {
+    console.log("Метод 2 вызван");
+  },
+  property: "Это не метод",
+};
+
+callAllMethods(myObject);
