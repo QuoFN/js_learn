@@ -1,87 +1,64 @@
-// Задача 1.
-// Создайте объект person с несколькими свойствами, содержащими информацию о вас. Затем выведите значения этих свойств в консоль.
+"use strict";
 
+const todos = [];
 
-const person = {
-  name: "Sava",
-  age: 19,
-  hobby: "volleyball"
+const todoKeys = {
+  id: "id",
+  text: "text",
+  isCompleted: "isCompleted",
 };
 
-for (let key in person) {
-  console.log(`${key}: ${person[key]}`);
+const getNewTodoId = todos => {
+  return (
+    todos.reduce((maxId, todo) => Math.max(maxId, todo[todoKeys.id]), 0) + 1
+  );
+};
+
+const errTodoNotFound = todoId => `Todo with id ${todoId} not found`;
+
+const createTodo = (todos, text) => {
+  const newTodo = {
+    [todoKeys.id]: getNewTodoId(todos),
+    [todoKeys.text]: text,
+    [todoKeys.isCompleted]: false,
+  };
+
+  todos.push(newTodo);
+  return newTodo;
+};
+
+const completeTodoById = (todos, todoId) => {
+  const todo = todos.find(todo => todo[todoKeys.id] === todoId);
+  if (!todo) {
+    console.error(errTodoNotFound(todoId));
+    return todos;
+  }
+  todo[todoKeys.isCompleted] = !todo[todoKeys.isCompleted];
+  return todo;
+};
+
+
+const deleteTodoById = (todos, id) => {
+  const index = todos.findIndex(todo => todo[todoKeys.id] === id);
+
+  if (index === -1) {
+    console.error(errTodoNotFound(id));
+    return todos;
+  }
+
+  todos.splice(index, 1);
+  return todos;
 }
 
+const changeTodoText = (todos, id, text) => {
 
+  const todo = todos.find(todo => todo[todoKeys.id] === id);
 
-// Задача 2.
-// Создайте функцию isEmpty, которая проверяет является ли переданный объект пустым.
-// Если объект пуст - верните true, в противном случае false.
-
-const isEmpty = obj => {
-  for (let key in obj) {
-    return false;
+  if (!todo) {
+    console.error(`Todo with id ${id} not found`);
+    return null;
   }
-  return true;
-};
 
-console.log(isEmpty({}));
-console.log(isEmpty({ name: "Sava" }));
-
-
-
-// Задача 3.
-// Создайте объект task с несколькими свойствами: title, description, isCompleted.
-// Напишите функцию cloneAndModify(object, modifications), которая
-// с помощью оператора spread создает копию объекта и применяет изменения из объекта modifications.
-// Затем с помощью цикла for in выведите все свойства полученного объекта.
-
-
-const task = {
-  title: "Hello",
-  description: "i am programmer",
-  isCompleted: true,
-};
-
-const cloneAndModify = (object, modifications) => {
-  return { ...object, ...modifications };
-};
-
-const modifications = {
-  title: "How are you?",
-  isCompleted: false,
-};
-
-const modifiedTask = cloneAndModify(task, modifications);
-
-for (const key in modifiedTask) {
-  console.log(`${key}: ${modifiedTask[key]}`);
+  todo[todoKeys.text] = text;
+  return todo;
 }
-
-console.log("Оригинал:", task);
-console.log("Изменённая копия:", modifiedTask);
-
-
-
-// Задача 4.
-// Создайте функцию callAllMethods, которая принимает объект и вызывает все его методы.
-
-const callAllMethods = obj => {
-  for (const key in obj) {
-    if (typeof obj[key] === "function") {
-      obj[key]();
-    }
-  }
-};
-
-const myObject = {
-  method1() {
-    console.log("Метод 1 вызван");
-  },
-  method2() {
-    console.log("Метод 2 вызван");
-  },
-  property: "Это не метод",
-};
-
-callAllMethods(myObject);
