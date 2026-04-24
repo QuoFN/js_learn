@@ -37,7 +37,6 @@ const completeTodoById = (todos, todoId) => {
   return todo;
 };
 
-
 const deleteTodoById = (todos, id) => {
   const index = todos.findIndex(todo => todo[todoKeys.id] === id);
 
@@ -48,10 +47,9 @@ const deleteTodoById = (todos, id) => {
 
   todos.splice(index, 1);
   return todos;
-}
+};
 
 const changeTodoText = (todos, id, text) => {
-
   const todo = todos.find(todo => todo[todoKeys.id] === id);
 
   if (!todo) {
@@ -61,4 +59,45 @@ const changeTodoText = (todos, id, text) => {
 
   todo[todoKeys.text] = text;
   return todo;
+};
+
+// ----------------------------------------------------------------------------
+
+const form = document.querySelector(".form");
+const input = document.querySelector(".input");
+const todosList = document.querySelector(".todos");
+
+function createTodoElement(text) {
+  const list = document.createElement("li");
+  list.classList.add("todo");
+  list.innerHTML(`div class="todo-text">${text}</div>
+  <div class="todo-actions">
+    <button class="button-complete button">&#10004;</button>
+    <button class="button-delete button">&#10006;</button>
+  </div>`);
+  return list;
 }
+
+function handleCreateTodo(todos, text) {
+  const button = document.querySelector('.button-create');
+
+  button.addEventListener('click', () => {
+    todos = createTodo();
+    text = createTodoElement();
+  })
+}
+
+handleCreateTodo(todos, list);
+
+
+
+
+
+
+
+// При помощи метода querySelector получаем элементы .form, .input и .todos
+
+// Создаем функцию createTodoElement(text), которая будет создавать todo в виде разметки
+
+// Создаем функцию handleCreateTodo(todos, text),
+//  которая будет вызывать createTodo и createTodoElement
