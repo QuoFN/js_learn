@@ -87,7 +87,7 @@ function handleCreateTodo(todos, text) {
   })
 }
 
-handleCreateTodo(todos, list);
+handleCreateTodo(todos, inner.value);
 
 
 
